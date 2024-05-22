@@ -16,6 +16,8 @@ public class HelperBase {
     public HelperBase(WebDriver wd) {
         this.wd = wd;
     }
+
+
     public void type(By locator, String text) {
         WebElement element = wd.findElement(locator);
         element.click();
@@ -54,4 +56,12 @@ public class HelperBase {
         }
         return false;
     }
+    public String getMessage() {
+        WebElement element = wd.findElement(By.cssSelector(".contact-item_card__2SOIM>h2"));
+        String text = element.getText();
+        pause(2000);
+        return text;
+
+    }
+
 }

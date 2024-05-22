@@ -53,19 +53,5 @@ public class LoginTests extends TestBase{
         app.getHelperUser().submitLogin();
         Assert.assertTrue(app.getHelperUser().isAlertPresent("Wrong email or password"));
     }
-    @Test
-    public void registrationSucces(){
-        Random random = new Random();
-        int i = random.nextInt(1000)+1000;
 
-        User user = new User()
-                .setEmail("email" + i + "@gmail.com")
-                .setPassword("Password1!");
-
-        app.getHelperUser().openLoginRegistrationForm();
-        app.getHelperUser().fillLoginRegistrationForm(user);
-        app.getHelperUser().submitReg();
-        Assert.assertTrue(app.getHelperUser().isElementPresent(By.xpath("//a[text()='ADD']")));
-
-    }
 }

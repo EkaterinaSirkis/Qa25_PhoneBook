@@ -13,8 +13,8 @@ public class Contact {
 
 private String name;
 private String lastName;
-private int phone;
-private String emaill;
+private String phone;
+private String email;
 private String address;
 private String description;
 
