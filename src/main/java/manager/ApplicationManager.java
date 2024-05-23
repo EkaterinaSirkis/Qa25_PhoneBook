@@ -17,6 +17,7 @@ public class ApplicationManager {
         wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         wd.navigate().to("https://telranedu.web.app/home");
         helperUser = new HelperUser(wd);
+        helperContact = new HelperContact(wd);
     }
 
     public HelperUser getHelperUser() {
