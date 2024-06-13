@@ -1,22 +1,22 @@
 package tests;
 
+import manager.DataProviderContacts;
 import models.Contact;
 import models.User;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.Random;
 
 public class AddNewContact extends TestBase{
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void preCondition(){
         if(!app.getHelperUser().isLogged()){
             app.getHelperUser().login(new User().setEmail("margo@gmail.com").setPassword("Mmar123456$"));
         }
     }
-    @Test
+    @Test(dataProvider = "contactCSV", dataProviderClass = DataProviderContacts.class, groups = {"smoke", "regress", "retest"})
     public void AddNewContactAllSuccess(){
         //int i = (int) (System.currentTimeMillis()/10)%3600;
         int i = new Random().nextInt(1000)+1000;
@@ -30,6 +30,7 @@ public class AddNewContact extends TestBase{
                 build();
         app.getHelperContact().openAddContactForm();
         app.getHelperContact().fillAddContactForm(contact);
+        app.getHelperContact().getScreen("src/test/screenshots/screen.png-"+i+".png");
         app.getHelperContact().clickSave();
         Assert.assertTrue(app.getHelperContact().isContactAddedByName(contact.getName()));
         Assert.assertTrue(app.getHelperContact().isContactAddedByPhone(contact.getPhone()));
@@ -66,16 +67,8 @@ public class AddNewContact extends TestBase{
         app.getHelperContact().clickSave();
         Assert.assertTrue(app.getHelperContact().isAddPageStillDisplayed());
     }
-    @Test
-    public void AddNewContactWrongPhone(){
-        Contact contact = Contact.builder().
-                name("Name").
-                lastName("LastName").
-                phone("").
-                email("email@gmail.com").
-                address("address").
-                description("israel").
-                build();
+    @Test(dataProvider = "contactWrongPhone", dataProviderClass = DataProviderContacts.class)
+    public void AddNewContactWrongPhone(Contact contact){
         app.getHelperContact().openAddContactForm();
         app.getHelperContact().fillAddContactForm(contact);
         app.getHelperContact().clickSave();
@@ -87,7 +80,7 @@ public class AddNewContact extends TestBase{
         Contact contact = Contact.builder().
                 name("Name").
                 lastName("LastName").
-                phone("050").
+                phone("0503149113").
                 email("emailgmail.com").
                 address("address").
                 description("israel").
@@ -103,8 +96,8 @@ public class AddNewContact extends TestBase{
         Contact contact = Contact.builder().
                 name("Name").
                 lastName("LastName").
-                phone("050").
-                email("emailgmail.com").
+                phone("0503149113").
+                email("email@gmail.com").
                 address("").
                 description("israel").
                 build();
