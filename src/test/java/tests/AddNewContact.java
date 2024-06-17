@@ -17,17 +17,9 @@ public class AddNewContact extends TestBase{
         }
     }
     @Test(dataProvider = "contactCSV", dataProviderClass = DataProviderContacts.class, groups = {"smoke", "regress", "retest"})
-    public void AddNewContactAllSuccess(){
+    public void AddNewContactAllSuccess(Contact contact){
         //int i = (int) (System.currentTimeMillis()/10)%3600;
         int i = new Random().nextInt(1000)+1000;
-        Contact contact = Contact.builder().
-                name("Name" + i).
-                lastName("LastName").
-                phone("050314"+i).
-                email("email" + i+ "@gmail.com").
-                address("address").
-                description("israel").
-                build();
         app.getHelperContact().openAddContactForm();
         app.getHelperContact().fillAddContactForm(contact);
         app.getHelperContact().getScreen("src/test/screenshots/screen.png-"+i+".png");
